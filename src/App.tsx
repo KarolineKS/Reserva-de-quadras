@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Usuario } from './classes/Usuario';
 import { Quadra } from './classes/Quadra';
 import { Reserva } from './classes/Reserva';
+import './output.css'
 
 function App() {
   const [nome, setNome] = useState('');
