@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+main {
+    @apply m-0 h-screen bg-[url('/src/img/imgfundo.jpg')];
+}
+
+.formulario {
+    @apply flex justify-center bg-white/20 backdrop-blur-2xl w-1/2 h-1/2 m-auto p-4 rounded-lg shadow-lg w-[80%] gap-[20px];
+}
+
+.titulo {
+    @apply text-2xl font-bold text-center;
+}
+
+.subtitulo {
+    @apply text-lg font-semibold text-center mb-3;
+}
+
+.cadastro {
+    @apply flex flex-col;
+}
+
+.cadastro label {
+    @apply mr-3
+}
+
+.cadastro div {
+    @apply flex flex-col gap-1;
+}

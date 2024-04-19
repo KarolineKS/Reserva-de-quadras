@@ -553,3 +553,57 @@ video {
   --tw-contain-paint:  ;
   --tw-contain-style:  ;
 }
+
+main {
+  margin: 0px;
+  height: 100vh;
+  background-image: url('/src/img/imgfundo.jpg');
+}
+
+.formulario {
+  margin: auto;
+  display: flex;
+  height: 50%;
+  width: 80%;
+  justify-content: center;
+  gap: 20px;
+  border-radius: 0.5rem;
+  background-color: rgb(255 255 255 / 0.2);
+  padding: 1rem;
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  --tw-backdrop-blur: blur(40px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
+.titulo {
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+}
+
+.subtitulo {
+  margin-bottom: 0.75rem;
+  text-align: center;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+}
+
+.cadastro {
+  display: flex;
+  flex-direction: column;
+}
+
+.cadastro label {
+  margin-right: 0.75rem;
+}
+
+.cadastro div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}

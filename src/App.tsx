@@ -83,81 +83,93 @@ function App() {
 
   return (
     <main>
-      <form>
-        <h1>Reserva de Quadras Esportivas</h1>
-        <h2>Cadastrar Cliente</h2>
-        <input
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-          placeholder="Nome do cliente"
-        />
-        <input
-          value={cpf}
-          onChange={(e) => setCpf(e.target.value)}
-          placeholder="CPF"
-        />
+      <h1 className='titulo'>Reserva de Quadras Esportivas</h1>
+      <form className='formulario'>
+        <div className='cadastro'>
+        <h2 className='subtitulo'>Cadastrar Cliente</h2>
+          <div>
+            <label htmlFor="cliente">Nome do cliente: </label>
+                    <input id='cliente'
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            placeholder="Nome do cliente"
+                    />
+          </div>
+        <div>
+          <label htmlFor="cpf">CPF: </label>
+          <input
+          id='cpf'
+            value={cpf}
+            onChange={(e) => setCpf(e.target.value)}
+            placeholder="CPF"
+          />
+        </div>
         <button onClick={(event) => cadastrarUsuario(event)}>
           Cadastrar cliente
         </button>
-
-        <h2>Cadastrar Quadra</h2>
-        <input
-          value={cod}
-          onChange={(e) => setCod(e.target.value)}
-          placeholder="Código da quadra"
-        />
-        <input
-          value={tipo}
-          onChange={(e) => setTipo(e.target.value)}
-          placeholder="Tipo"
-        />
-        <input
-          value={valorHora}
-          onChange={(e) => setValorHora(Number(e.target.value))}
-          placeholder="Valor por Hora"
-        />
-        <button onClick={cadastrarQuadra}>Cadastrar quadra</button>
-
-        <h2>Cadastrar Reserva</h2>
-        <div>
-          <label htmlFor="nomeCliente">Nome do cliente: </label>
-          <input
-            id="nomeCliente"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-            placeholder="Informe o nome do Cliente"
-          />
         </div>
-        <div>
-          <label htmlFor="codigoQuadra">Código da quadra: </label>
+        <div className='cadastro'>
+          <h2>Cadastrar Quadra</h2>
           <input
-            id="codigoQuadra"
             value={cod}
             onChange={(e) => setCod(e.target.value)}
-            placeholder="Código da Quadra"
+            placeholder="Código da quadra"
           />
-        </div>
-        <div>
-          <label htmlFor="tempoReserva">Tempo de Reserva em horas: </label>
           <input
-            id="tempoReserva"
-            value={tempoReserva}
-            onChange={(e) => setTempoReserva(Number(e.target.value))}
-            placeholder="Tempo de Reserva"
+            value={tipo}
+            onChange={(e) => setTipo(e.target.value)}
+            placeholder="Tipo"
           />
-        </div>
-        <div>
-          <label htmlFor="horaEntrada">Hora de entrada: </label>
           <input
-            id="horaEntrada"
-            value={horaEntrada}
-            onChange={(e) => setHoraEntrada(Number(e.target.value))}
-            placeholder="Hora de Entrada"
+            value={valorHora}
+            onChange={(e) => setValorHora(Number(e.target.value))}
+            placeholder="Valor por Hora"
           />
+          <button onClick={cadastrarQuadra}>Cadastrar quadra</button>
         </div>
-        <button onClick={(event) => cadastrarReserva(event)}>
-          Cadastrar reserva
-        </button>
+
+        <div className='cadastro'>
+          <h2>Cadastrar Reserva</h2>
+          <div>
+            <label htmlFor="nomeCliente">Nome do cliente: </label>
+            <input
+              id="nomeCliente"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              placeholder="Informe o nome do Cliente"
+            />
+          </div>
+          <div>
+            <label htmlFor="codigoQuadra">Código da quadra: </label>
+            <input
+              id="codigoQuadra"
+              value={cod}
+              onChange={(e) => setCod(e.target.value)}
+              placeholder="Código da Quadra"
+            />
+          </div>
+          <div>
+            <label htmlFor="tempoReserva">Tempo de Reserva em horas: </label>
+            <input
+              id="tempoReserva"
+              value={tempoReserva}
+              onChange={(e) => setTempoReserva(Number(e.target.value))}
+              placeholder="Tempo de Reserva"
+            />
+          </div>
+          <div>
+            <label htmlFor="horaEntrada">Hora de entrada: </label>
+            <input
+              id="horaEntrada"
+              value={horaEntrada}
+              onChange={(e) => setHoraEntrada(Number(e.target.value))}
+              placeholder="Hora de Entrada"
+            />
+          </div>
+          <button onClick={(event) => cadastrarReserva(event)}>
+            Cadastrar reserva
+          </button>
+        </div>
       </form>
       <section>
         <h2>Clientes Cadastrados</h2>
