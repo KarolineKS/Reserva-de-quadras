@@ -109,27 +109,36 @@ function App() {
         </button>
         </div>
         <div className='cadastro'>
-          <h2>Cadastrar Quadra</h2>
-          <input
-            value={cod}
-            onChange={(e) => setCod(e.target.value)}
-            placeholder="Código da quadra"
-          />
-          <input
-            value={tipo}
-            onChange={(e) => setTipo(e.target.value)}
-            placeholder="Tipo"
-          />
-          <input
-            value={valorHora}
-            onChange={(e) => setValorHora(Number(e.target.value))}
-            placeholder="Valor por Hora"
-          />
+          <h2 className='subtitulo'>Cadastrar Quadra</h2>
+          <div>
+            <label htmlFor="cod">Código da quadra: </label>
+            <input
+              value={cod}
+              onChange={(e) => setCod(e.target.value)}
+              placeholder="Código da quadra"
+            />
+          </div>
+          <div>
+            <label htmlFor="tipo">Tipo: </label>
+            <input
+              value={tipo}
+              onChange={(e) => setTipo(e.target.value)}
+              placeholder="Tipo"
+            />
+          </div>
+          <div>
+            <label htmlFor="valorHora">Valor por hora: </label>
+            <input
+              value={valorHora}
+              onChange={(e) => setValorHora(Number(e.target.value))}
+              placeholder="Valor por Hora"
+            />
+          </div>
           <button onClick={cadastrarQuadra}>Cadastrar quadra</button>
         </div>
 
         <div className='cadastro'>
-          <h2>Cadastrar Reserva</h2>
+          <h2 className='subtitulo'>Cadastrar Reserva</h2>
           <div>
             <label htmlFor="nomeCliente">Nome do cliente: </label>
             <input
@@ -171,133 +180,140 @@ function App() {
           </button>
         </div>
       </form>
-      <section>
-        <h2>Clientes Cadastrados</h2>
-          {usuarios.map((usuario) => (
-            <table>
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>CPF</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{usuario.nome}</td>
-                  <td>{usuario.cpf}</td>
-                </tr>
-              </tbody>
-            </table>
-          ))}
-      </section>
-      <section>
-        <h2>Quadras Cadastradas</h2>
+      <section className='cadastrados'>
+        <section>
+          <h2 className='subtitulo'>Clientes Cadastrados</h2>
+            {usuarios.map((usuario) => (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                        <td>{usuario.nome}</td>
+                        <td>{usuario.cpf}</td>
+                  </tr>
+                </tbody>
+              </table>
+            ))}
+        </section>
+        <section>
+          <h2 className='subtitulo'>Quadras Cadastradas</h2>
         
-          {quadras.map((quadra) => (
+            {quadras.map((quadra) => (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Código</th>
+                    <th>Quadra</th>
+                    <th>Valor por Hora</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{quadra.cod}</td>
+                    <td>{quadra.tipo}</td>
+                    <td>R${(quadra.valorHora).toFixed(2)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            ))}
+        
+        </section>
+        <section>
+          <h2 className='subtitulo'>Reservas Cadastradas</h2>
+        
+            {reservas.map((reserva) => (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>Quadra</th>
+                    <th>Data</th>
+                    <th>Hora Entrada</th>
+                    <th>Hora Saída</th>
+                    <th>Total a pagar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{reserva.usuario}</td>
+                    <td>{reserva.quadra.tipo}</td>
+                    <td>{reserva.data}</td>
+                    <td>{reserva.horaEntrada}hr</td>
+                    <td>{reserva.horaSaida}hr</td>
+                    <td>R${reserva.total.toFixed(2)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            ))}
+        
+        </section>
+      </section>
+      <section className='informacoes'>
+      <div>
+            <h2 className='subtitulo'>Lista de quadras ocupadas e livres</h2>
+            <label htmlFor="horario">Informe o horário: </label>
+            <input
+              type="number"
+              placeholder="Informe o horário"
+              onChange={(e) => setHorario(Number(e.target.value))}
+            />
             <table>
               <thead>
                 <tr>
                   <th>Código</th>
                   <th>Quadra</th>
-                  <th>Valor por Hora</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>{quadra.cod}</td>
-                  <td>{quadra.tipo}</td>
-                  <td>R${(quadra.valorHora).toFixed(2)}</td>
-                </tr>
+                {quadrasOcupadas.map((quadra) => (
+                  <tr key={quadra.cod}>
+                    <td>{quadra.cod}</td>
+                    <td>{quadra.tipo}</td>
+                    <td>{quadra.status}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
-          ))}
-        
-      </section>
-      <section>
-        <h2>Reservas Cadastradas</h2>
-        
-          {reservas.map((reserva) => (
-            <table>
-              <thead>
-                <tr>
-                  <th>Cliente</th>
-                  <th>Quadra</th>
-                  <th>Data</th>
-                  <th>Hora de Entrada</th>
-                  <th>Hora de Saída</th>
-                  <th>Total a pagar</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{reserva.usuario}</td>
-                  <td>{reserva.quadra.tipo}</td>
-                  <td>{reserva.data}</td>
-                  <td>{reserva.horaEntrada}</td>
-                  <td>{reserva.horaSaida}</td>
-                  <td>R${reserva.total.toFixed(2)}</td>
-                </tr>
-              </tbody>
-            </table>
-          ))}
-        
-      </section>
-      <section>
-        <h2>Cancelar Reserva</h2>
-        <input
-          type="text"
-          placeholder="Informe o nome do cliente"
-          onChange={(e) => setNomePesquisa(e.target.value)}
-        />
-        <button onClick={() => cancelarReserva(nomePesquisa)}>
-          Cancelar Reserva
-        </button>
-      </section>
-      <section>
-        <h1>Relação de quadras ocupadas e livres</h1>
-        <input
-          type="number"
-          placeholder="Informe o horário"
-          onChange={(e) => setHorario(Number(e.target.value))}
-        />
-        <table>
-          <thead>
-            <tr>
-              <th>Código</th>
-              <th>Quadra</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {quadrasOcupadas.map((quadra) => (
-              <tr key={quadra.cod}>
-                <td>{quadra.cod}</td>
-                <td>{quadra.tipo}</td>
-                <td>{quadra.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
-      <section>
-        <h1>Pesquisar reserva</h1>
-        <input
-          type="text"
-          placeholder="Informe o nome do cliente"
-          onChange={(e) => setNomePesquisa(e.target.value)}
-        />
-        <button onClick={() => pesquisarReserva(nomePesquisa)}>
-          Pesquisar
-        </button>
-        {typeof resultadoBusca === 'string' ? (
-          <p>{resultadoBusca}</p>
-        ) : (
-          <p>
-            {resultadoBusca.usuario} - {resultadoBusca.quadra.tipo} -{' '}
-            {resultadoBusca.data} - {resultadoBusca.horaEntrada} -{' '}
-            {resultadoBusca.horaSaida}
-          </p>
-        )}
+          </div>
+          <div>
+          <h2 className='subtitulo'>Pesquisar reserva</h2>
+            <label htmlFor="cliente">Informe o nome do cliente: </label>
+            <input
+              type="text"
+              placeholder="Informe o nome do cliente"
+              onChange={(e) => setNomePesquisa(e.target.value)}
+            />
+            <button onClick={() => pesquisarReserva(nomePesquisa)}>
+              Pesquisar
+            </button>
+          {typeof resultadoBusca === 'string' ? (
+            <p>{resultadoBusca}</p>
+          ) : (
+            <p>
+              {resultadoBusca.usuario} - {resultadoBusca.quadra.tipo} -{' '}
+              {resultadoBusca.data} - {resultadoBusca.horaEntrada} -{' '}
+              {resultadoBusca.horaSaida}
+            </p>
+          )}
+          </div>
+          <div>
+            <h2 className='subtitulo'>Cancelar Reserva</h2>
+            <label htmlFor="cliente">Informe o nome do cliente: </label>
+            <input
+              type="text"
+              placeholder="Informe o nome do cliente"
+              onChange={(e) => setNomePesquisa(e.target.value)}
+            />
+            <button onClick={() => cancelarReserva(nomePesquisa)}>
+              Cancelar Reserva
+            </button>
+          </div>
       </section>
     </main>
   );

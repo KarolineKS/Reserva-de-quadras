@@ -556,8 +556,6 @@ video {
 
 main {
   margin: 0px;
-  height: 100vh;
-  background-image: url('/src/img/imgfundo.jpg');
 }
 
 .formulario {
@@ -568,7 +566,7 @@ main {
   justify-content: center;
   gap: 20px;
   border-radius: 0.5rem;
-  background-color: rgb(255 255 255 / 0.2);
+  background-color: rgb(23 37 84 / 0.2);
   padding: 1rem;
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
@@ -579,14 +577,16 @@ main {
 }
 
 .titulo {
+  gap: 0.75rem;
   text-align: center;
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .subtitulo {
-  margin-bottom: 0.75rem;
   text-align: center;
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -606,4 +606,140 @@ main {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+}
+
+.cadastro div input {
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+}
+
+.formulario button {
+  margin-top: 1.25rem;
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+  padding: 0.5rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.formulario button:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
+}
+
+.cadastrados {
+  margin: auto;
+  margin-top: 0.75rem;
+  display: flex;
+  height: 50%;
+  width: 80%;
+  justify-content: space-between;
+  gap: 20px;
+  border-radius: 0.5rem;
+  background-color: rgb(23 37 84 / 0.2);
+  padding: 1rem;
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  --tw-backdrop-blur: blur(40px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
+.cadastrados section {
+  width: 100%;
+}
+
+.cadastrados table {
+  width: 100%;
+}
+
+.cadastrados table tr {
+  border-bottom-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+
+.cadastrados table tr th {
+  width: 60px;
+  height: 60px;
+  padding: 0.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.cadastrados table tr td {
+  text-align: center;
+}
+
+.informacoes {
+  margin: auto;
+  margin-top: 0.75rem;
+  display: flex;
+  height: 12rem;
+  width: 80%;
+  justify-content: space-between;
+  gap: 20px;
+  border-radius: 0.5rem;
+  background-color: rgb(23 37 84 / 0.2);
+  padding: 1rem;
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  --tw-backdrop-blur: blur(40px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
+.informacoes table tr {
+  border-bottom-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+
+.informacoes table tr th {
+  width: 60px;
+  height: 60px;
+  padding: 0.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.informacoes table tr td {
+  text-align: center;
+}
+
+.informacoes {
+  display: flex;
+}
+
+.informacoes div {
+  margin-right: 2.5rem;
+  margin-left: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.informacoes div input {
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+}
+
+.informacoes button {
+  margin-top: 1.25rem;
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+  padding: 0.5rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.informacoes button:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
