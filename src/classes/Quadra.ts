@@ -11,23 +11,30 @@ export class Quadra {
         this.valorHora = valorHora;
     }
 
-    static cadastrarQuadra(cod: string,tipo: string, valorHora: number): Quadra{
+    static cadastrarQuadra(cod: string,tipo: string, valorHora: number): { quadra?: Quadra, mensagem: string } {
+        if (!cod || !tipo || valorHora < 0) {
+            return { mensagem: 'Valores inválidos fornecidos para cadastrarQuadra' };
+        }
+
+        const existingQuadra = Quadra.buscarQuadraCod(cod);
+        if (existingQuadra) {
+            return { mensagem: 'Uma quadra com o mesmo código já existe' };
+        }
+
         const newQuadra = new Quadra(cod, tipo, valorHora);
         quadras.push(newQuadra);
-        return newQuadra;
+        return { quadra: newQuadra, mensagem: 'Quadra cadastrada com sucesso' };
     }
 
     static listarQuadras(): Quadra[] {
        return quadras;
     }
 
-    static buscarQuadraCod(cod: string): Quadra | undefined {
-        for (const quadra of quadras) {
-            if (quadra.cod === cod) {
-                return quadra;
-            }
+    static buscarQuadraCod(cod: string): { quadra?: Quadra, mensagem: string } {
+        const quadra = quadras.find(q => q.cod === cod);
+        if (!quadra) {
+            return { mensagem: 'Quadra não encontrada' };
         }
-        return undefined;
+        return { quadra, mensagem: 'Quadra encontrada' };
     }
-
 }

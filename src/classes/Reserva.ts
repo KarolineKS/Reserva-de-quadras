@@ -25,32 +25,33 @@ export class Reserva {
     this.total = this.tempoReserva * quadra.valorHora;
    }
 
-  static cadastrarReserva(quadra: Quadra,  usuario: string, tempoReserva: number, horaEntrada: number): Reserva {
+   static cadastrarReserva(quadra: Quadra,  usuario: string, tempoReserva: number, horaEntrada: number): { reserva?: Reserva, mensagem: string } {
+    if (this.isQuadraReservada(quadra.cod, horaEntrada)) {
+      return { mensagem: 'A quadra já está reservada para este horário' };
+    }
+
     const newReserva = new Reserva(quadra, usuario, tempoReserva, horaEntrada);
     reservas.push(newReserva);
-    return newReserva;
+    return { reserva: newReserva, mensagem: 'Reserva cadastrada com sucesso' };
   }
 
-  static listarReservas(): Reserva[] {
-    return reservas;
-}
-
-  static cancelarReserva(usuario: string): void {
+  static cancelarReserva(usuario: string): { mensagem: string } {
     for (let i = 0; i < reservas.length; i++) {
       if(reservas[i].usuario === usuario) {
         reservas.splice(i, 1);
-        break;
+        return { mensagem: 'Reserva cancelada com sucesso' };
       }
     }
+    return { mensagem: 'Não foi encontrada nenhuma reserva para este usuário' };
   }
 
-  static buscarReservaUsuario(usuario: string): Reserva | string {
+  static buscarReservaUsuario(usuario: string): { reserva?: Reserva, mensagem: string } {
     for (const reserva of reservas) {
       if(reserva.usuario === usuario) {
-        return reserva;
+        return { reserva, mensagem: 'Reserva encontrada' };
       }
     }
-    return "Não possuímos reservas em seu nome.";
+    return { mensagem: 'Não possuímos reservas em seu nome.' };
   }
 
   static isQuadraReservada(cod: string, horario: number): boolean {
