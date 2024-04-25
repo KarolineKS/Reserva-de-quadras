@@ -86,7 +86,6 @@ function App() {
         <h1>Reserva de Quadras Esportivas</h1>
         <h2>Cadastrar Cliente</h2>
         <input
-          value={nome}
           onChange={(e) => setNome(e.target.value)}
           placeholder="Nome do cliente"
         />
@@ -122,7 +121,6 @@ function App() {
           <label htmlFor="nomeCliente">Nome do cliente: </label>
           <input
             id="nomeCliente"
-            value={nome}
             onChange={(e) => setNome(e.target.value)}
             placeholder="Informe o nome do Cliente"
           />
