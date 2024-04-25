@@ -35,6 +35,10 @@ export class Reserva {
     return { reserva: newReserva, mensagem: 'Reserva cadastrada com sucesso' };
   }
 
+  static listarReservas(): Reserva[] {
+    return reservas;
+  }
+
   static cancelarReserva(usuario: string): { mensagem: string } {
     for (let i = 0; i < reservas.length; i++) {
       if(reservas[i].usuario === usuario) {

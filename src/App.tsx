@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Usuario } from './classes/Usuario';
 import { Quadra } from './classes/Quadra';
 import { Reserva } from './classes/Reserva';
-import './output.css'
+import './output.css';
 
 function App() {
   const [nome, setNome] = useState('');
@@ -45,75 +45,103 @@ function App() {
 
   const cadastrarUsuario = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    Usuario.cadastrarUsuario(nome, cpf);
+    const { mensagem } = Usuario.cadastrarUsuario(nome, cpf);
+    alert(mensagem);
     setNome('');
     setCpf('');
   };
 
   const cadastrarQuadra = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    Quadra.cadastrarQuadra(cod, tipo, valorHora);
-    setCod('');
-    setTipo('');
-    setValorHora(0);
+    const {mensagem}= Quadra.buscarQuadraCod(cod);
+    if (mensagem === 'Quadra encontrada') {
+      alert('Uma quadra com este código já existe.');
+    } else {
+      const { mensagem } = Quadra.cadastrarQuadra(cod, tipo, valorHora);
+      alert(mensagem);
+      setCod('');
+      setTipo('');
+      setValorHora(0);
+    }
   };
 
   const cadastrarReserva = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const quadra = Quadra.buscarQuadraCod(cod);
+    const { quadra } = Quadra.buscarQuadraCod(cod);
     if (quadra) {
-      Reserva.cadastrarReserva(quadra, nome, tempoReserva, horaEntrada);
+      const { mensagem } = Reserva.cadastrarReserva(
+        quadra,
+        nome,
+        tempoReserva,
+        horaEntrada
+      );
+      if (mensagem ==="A quadra já está reservada para este horário") {
+        alert(mensagem);
+      } 
+      alert(mensagem);
+      setCod('');
+      setNome('');
+      setTempoReserva(0);
+      setHoraEntrada(0);
+    } else {
+      alert('Quadra não encontrada');
     }
-    setCod('');
-    setNome('');
-    setTempoReserva(0);
-    setHoraEntrada(0);
-  };
-
+  }
+    
   const pesquisarReserva = (nome: string) => {
-    const resultado = Reserva.buscarReservaUsuario(nome);
-    setResultadoBusca(resultado);
+    const { reserva, mensagem } = Reserva.buscarReservaUsuario(nome);
+    if (mensagem === 'Reserva encontrada') {
+      alert(mensagem);
+      setResultadoBusca(reserva || '');
+    } else {
+      alert(mensagem);
+    }
   };
 
   const cancelarReserva = (nome: string) => {
-    Reserva.cancelarReserva(nome);
+    const { mensagem } = Reserva.cancelarReserva(nome);
+
+    if (mensagem === 'Reserva cancelada com sucesso') {
     const reservasAtualizadas = [...Reserva.listarReservas()];
     setReservas(reservasAtualizadas);
+    alert(mensagem);
+    } else {
+      alert(mensagem);
+    }
   };
 
   return (
     <main>
-      <h1 className='titulo'>Reserva de Quadras Esportivas</h1>
-      <form className='formulario'>
-        <div className='cadastro'>
-        <h2 className='subtitulo'>Cadastrar Cliente</h2>
+      <h1 className="titulo">Reserva de Quadras Esportivas</h1>
+      <form className="formulario">
+        <div className="cadastro">
+          <h2 className="subtitulo">Cadastrar Cliente</h2>
           <div>
             <label htmlFor="cliente">Nome do cliente: </label>
-                    <input id='cliente'
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-            placeholder="Nome do cliente"
-                    />
+            <input
+              id="cliente"
+              onChange={(e) => setNome(e.target.value)}
+              placeholder="Nome do cliente"
+            />
           </div>
-        <div>
-          <label htmlFor="cpf">CPF: </label>
-          <input
-          id='cpf'
-            value={cpf}
-            onChange={(e) => setCpf(e.target.value)}
-            placeholder="CPF"
-          />
+          <div>
+            <label htmlFor="cpf">CPF: </label>
+            <input
+              id="cpf"
+              value={cpf}
+              onChange={(e) => setCpf(e.target.value)}
+              placeholder="CPF"
+            />
+          </div>
+          <button onClick={(event) => cadastrarUsuario(event)}>
+            Cadastrar cliente
+          </button>
         </div>
-        <button onClick={(event) => cadastrarUsuario(event)}>
-          Cadastrar cliente
-        </button>
-        </div>
-        <div className='cadastro'>
-          <h2 className='subtitulo'>Cadastrar Quadra</h2>
+        <div className="cadastro">
+          <h2 className="subtitulo">Cadastrar Quadra</h2>
           <div>
             <label htmlFor="cod">Código da quadra: </label>
             <input
-              value={cod}
               onChange={(e) => setCod(e.target.value)}
               placeholder="Código da quadra"
             />
@@ -137,13 +165,12 @@ function App() {
           <button onClick={cadastrarQuadra}>Cadastrar quadra</button>
         </div>
 
-        <div className='cadastro'>
-          <h2 className='subtitulo'>Cadastrar Reserva</h2>
+        <div className="cadastro">
+          <h2 className="subtitulo">Cadastrar Reserva</h2>
           <div>
             <label htmlFor="nomeCliente">Nome do cliente: </label>
             <input
               id="nomeCliente"
-              value={nome}
               onChange={(e) => setNome(e.target.value)}
               placeholder="Informe o nome do Cliente"
             />
@@ -152,7 +179,6 @@ function App() {
             <label htmlFor="codigoQuadra">Código da quadra: </label>
             <input
               id="codigoQuadra"
-              value={cod}
               onChange={(e) => setCod(e.target.value)}
               placeholder="Código da Quadra"
             />
@@ -180,126 +206,122 @@ function App() {
           </button>
         </div>
       </form>
-      <section className='cadastrados'>
+      <section className="cadastrados">
         <section>
-          <h2 className='subtitulo'>Clientes Cadastrados</h2>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Nome</th>
-                      <th>CPF</th>
-                    </tr>
-                  </thead>
-                </table>
-            {usuarios.map((usuario) => (
-             
-                <table>
-                  <tbody>
-                    <tr>
-                          <td>{usuario.nome}</td>
-                          <td>{usuario.cpf}</td>
-                    </tr>
-                  </tbody>
-                </table>
-             
-            ))}
-        </section>
-        <section>
-          <h2 className='subtitulo'>Quadras Cadastradas</h2>
-        
-              <table>
-                <thead>
-                  <tr>
-                    <th>Código</th>
-                    <th>Quadra</th>
-                    <th>Valor por Hora</th>
-                  </tr>
-                </thead>
-              </table>
-            {quadras.map((quadra) => (
-              <table>
-                <tbody>
-                  <tr>
-                    <td>{quadra.cod}</td>
-                    <td>{quadra.tipo}</td>
-                    <td>R${(quadra.valorHora).toFixed(2)}</td>
-                  </tr>
-                </tbody>
-              </table>
-            ))}
-        
-        </section>
-        <section>
-          <h2 className='subtitulo'>Reservas Cadastradas</h2>
-        
-              <table>
-                <thead>
-                  <tr>
-                    <th>Cliente</th>
-                    <th>Quadra</th>
-                    <th>Data</th>
-                    <th>Hora Entrada</th>
-                    <th>Hora Saída</th>
-                    <th>Total a pagar</th>
-                  </tr>
-                </thead>
-              </table>
-            {reservas.map((reserva) => (
-              <table>
-                <tbody>
-                  <tr>
-                    <td>{reserva.usuario}</td>
-                    <td>{reserva.quadra.tipo}</td>
-                    <td>{reserva.data}</td>
-                    <td>{reserva.horaEntrada}hr</td>
-                    <td>{reserva.horaSaida}hr</td>
-                    <td>R${reserva.total.toFixed(2)}</td>
-                  </tr>
-                </tbody>
-              </table>
-            ))}
-        
-        </section>
-      </section>
-      <section className='informacoes'>
-      <div>
-            <h2 className='subtitulo'>Lista de quadras ocupadas e livres</h2>
-            <label htmlFor="horario">Informe o horário: </label>
-            <input
-              type="number"
-              placeholder="Informe o horário"
-              onChange={(e) => setHorario(Number(e.target.value))}
-            />
+          <h2 className="subtitulo">Clientes Cadastrados</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+              </tr>
+            </thead>
+          </table>
+          {usuarios.map((usuario) => (
             <table>
-              <thead>
-                <tr>
-                  <th>Código</th>
-                  <th>Quadra</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
               <tbody>
-                {quadrasOcupadas.map((quadra) => (
-                  <tr key={quadra.cod}>
-                    <td>{quadra.cod}</td>
-                    <td>{quadra.tipo}</td>
-                    <td>{quadra.status}</td>
-                  </tr>
-                ))}
+                <tr>
+                  <td>{usuario.nome}</td>
+                  <td>{usuario.cpf}</td>
+                </tr>
               </tbody>
             </table>
-          </div>
-          <div>
-          <h2 className='subtitulo'>Pesquisar reserva</h2>
-            <label htmlFor="cliente">Informe o nome do cliente: </label>
-            <input
-              type="text"
-              placeholder="Informe o nome do cliente"
-              onChange={(e) => setNomePesquisa(e.target.value)}
-            />
-            <button onClick={() => pesquisarReserva(nomePesquisa)}>
-              Pesquisar
-            </button>
+          ))}
+        </section>
+        <section>
+          <h2 className="subtitulo">Quadras Cadastradas</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Quadra</th>
+                <th>Valor por Hora</th>
+              </tr>
+            </thead>
+          </table>
+          {quadras.map((quadra) => (
+            <table>
+              <tbody>
+                <tr>
+                  <td>{quadra.cod}</td>
+                  <td>{quadra.tipo}</td>
+                  <td>R${quadra.valorHora.toFixed(2)}</td>
+                </tr>
+              </tbody>
+            </table>
+          ))}
+        </section>
+        <section>
+          <h2 className="subtitulo">Reservas Cadastradas</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Quadra</th>
+                <th>Data</th>
+                <th>Hora Entrada</th>
+                <th>Hora Saída</th>
+                <th>Total a pagar</th>
+              </tr>
+            </thead>
+          </table>
+          {reservas.map((reserva) => (
+            <table>
+              <tbody>
+                <tr>
+                  <td>{reserva.usuario}</td>
+                  <td>{reserva.quadra.tipo}</td>
+                  <td>{reserva.data}</td>
+                  <td>{reserva.horaEntrada}hr</td>
+                  <td>{reserva.horaSaida}hr</td>
+                  <td>R${reserva.total.toFixed(2)}</td>
+                </tr>
+              </tbody>
+            </table>
+          ))}
+        </section>
+      </section>
+      <section className="informacoes">
+        <div>
+          <h2 className="subtitulo">Lista de quadras ocupadas e livres</h2>
+          <label htmlFor="horario">Informe o horário: </label>
+          <input
+            type="number"
+            placeholder="Informe o horário"
+            onChange={(e) => setHorario(Number(e.target.value))}
+          />
+          <table>
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Quadra</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {quadrasOcupadas.map((quadra) => (
+                <tr key={quadra.cod}>
+                  <td>{quadra.cod}</td>
+                  <td>{quadra.tipo}</td>
+                  <td>{quadra.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h2 className="subtitulo">Pesquisar reserva</h2>
+          <label htmlFor="cliente">Informe o nome do cliente: </label>
+          <input
+            type="text"
+            placeholder="Informe o nome do cliente"
+            onChange={(e) => setNomePesquisa(e.target.value)}
+          />
+          <button onClick={() => pesquisarReserva(nomePesquisa)}>
+            Pesquisar
+          </button>
           {typeof resultadoBusca === 'string' ? (
             <p>{resultadoBusca}</p>
           ) : (
@@ -309,19 +331,19 @@ function App() {
               {resultadoBusca.horaSaida}
             </p>
           )}
-          </div>
-          <div>
-            <h2 className='subtitulo'>Cancelar Reserva</h2>
-            <label htmlFor="cliente">Informe o nome do cliente: </label>
-            <input
-              type="text"
-              placeholder="Informe o nome do cliente"
-              onChange={(e) => setNomePesquisa(e.target.value)}
-            />
-            <button onClick={() => cancelarReserva(nomePesquisa)}>
-              Cancelar Reserva
-            </button>
-          </div>
+        </div>
+        <div>
+          <h2 className="subtitulo">Cancelar Reserva</h2>
+          <label htmlFor="cliente">Informe o nome do cliente: </label>
+          <input
+            type="text"
+            placeholder="Informe o nome do cliente"
+            onChange={(e) => setNomePesquisa(e.target.value)}
+          />
+          <button onClick={() => cancelarReserva(nomePesquisa)}>
+            Cancelar Reserva
+          </button>
+        </div>
       </section>
     </main>
   );

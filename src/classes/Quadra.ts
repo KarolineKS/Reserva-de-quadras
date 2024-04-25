@@ -16,11 +16,6 @@ export class Quadra {
             return { mensagem: 'Valores inválidos fornecidos para cadastrarQuadra' };
         }
 
-        const existingQuadra = Quadra.buscarQuadraCod(cod);
-        if (existingQuadra) {
-            return { mensagem: 'Uma quadra com o mesmo código já existe' };
-        }
-
         const newQuadra = new Quadra(cod, tipo, valorHora);
         quadras.push(newQuadra);
         return { quadra: newQuadra, mensagem: 'Quadra cadastrada com sucesso' };
