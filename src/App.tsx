@@ -183,27 +183,30 @@ function App() {
       <section className='cadastrados'>
         <section>
           <h2 className='subtitulo'>Clientes Cadastrados</h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>CPF</th>
+                    </tr>
+                  </thead>
+                </table>
             {usuarios.map((usuario) => (
-              <table>
-                <thead>
-                  <tr>
-                    <th>Nome</th>
-                    <th>CPF</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                        <td>{usuario.nome}</td>
-                        <td>{usuario.cpf}</td>
-                  </tr>
-                </tbody>
-              </table>
+             
+                <table>
+                  <tbody>
+                    <tr>
+                          <td>{usuario.nome}</td>
+                          <td>{usuario.cpf}</td>
+                    </tr>
+                  </tbody>
+                </table>
+             
             ))}
         </section>
         <section>
           <h2 className='subtitulo'>Quadras Cadastradas</h2>
         
-            {quadras.map((quadra) => (
               <table>
                 <thead>
                   <tr>
@@ -212,6 +215,9 @@ function App() {
                     <th>Valor por Hora</th>
                   </tr>
                 </thead>
+              </table>
+            {quadras.map((quadra) => (
+              <table>
                 <tbody>
                   <tr>
                     <td>{quadra.cod}</td>
@@ -226,7 +232,6 @@ function App() {
         <section>
           <h2 className='subtitulo'>Reservas Cadastradas</h2>
         
-            {reservas.map((reserva) => (
               <table>
                 <thead>
                   <tr>
@@ -238,6 +243,9 @@ function App() {
                     <th>Total a pagar</th>
                   </tr>
                 </thead>
+              </table>
+            {reservas.map((reserva) => (
+              <table>
                 <tbody>
                   <tr>
                     <td>{reserva.usuario}</td>
